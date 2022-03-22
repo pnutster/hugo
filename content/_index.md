@@ -1,3 +1,8 @@
++++
+title = "Hugo Home"
+pre = "<i class='fab fa-home'></i> "
++++
+
 # Learn Static Website
 
 - Site runs on Hugo
@@ -6,4 +11,4 @@
 
 Essentially a host-free solution. More to come...
 
-Basics for Leqrn Theme []https://learn.netlify.app/en/basics/
+Basics for Leqrn Theme https://learn.netlify.app/en/basics/
