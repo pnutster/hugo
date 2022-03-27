@@ -4,8 +4,15 @@
 
 baseurl = "/"
 languageCode = "en-us"
-theme = "learn"
+#theme = "learn"
 paginate = 5
+
+# Change the default theme to be use when building the site with Hugo
+theme = "hugo-theme-relearn"
+
+# For search functionality
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
 
 [params]
   # Prefix URL to edit current page. Will display an "Edit this page" button on top right hand corner of every page.

@@ -1,0 +1,44 @@
+          <footer class="footline">
+        {{- with .Params.LastModifierDisplayName }}
+            <i class='fas fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{ with $.Date }} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{ end }}
+        {{- end }}
+          </footer>
+        </div>
+      </main><!-- #body-inner -->
+{{- partial "custom-comments.html" . }}
+    </div><!-- #body -->
+{{- partial "menu.html" . }}
+    <script src="{{"js/clipboard.min.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+    <script src="{{"js/perfect-scrollbar.min.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+    <script src="{{"js/featherlight.min.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+{{- if (or (.Page.Store.Get "hasMermaid") (and (ne .Params.disableMermaid nil) (not .Params.disableMermaid)) (and (ne .Site.Params.disableMermaid nil) (not .Site.Params.disableMermaid)) ) }}
+    <script src="{{"js/jquery.svg.pan.zoom.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+  {{- if isset .Params "custommermaidurl" }}
+    <script src="{{ .Params.customMermaidURL }}"></script>
+  {{- else if isset .Site.Params "custommermaidurl" }}
+    <script src="{{ .Site.Params.customMermaidURL }}"></script>
+  {{- else }}
+    <script src="{{"js/mermaid.min.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+  {{- end }}
+  {{- if isset .Params "mermaidinitialize" }}
+    {{- $.Scratch.Set "mermaidInitialize" .Params.mermaidInitialize }}
+  {{- else if isset .Site.Params "mermaidinitialize" }}
+    {{- $.Scratch.Set "mermaidInitialize" .Site.Params.mermaidInitialize }}
+  {{- else }}
+    {{- $.Scratch.Set "mermaidInitialize" "{}" }}
+  {{- end }}
+    <script>
+      if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
+        var config = JSON.parse({{ $.Scratch.Get "mermaidInitialize" }});
+        mermaid.initialize( Object.assign( { "securityLevel": "antiscript", "startOnLoad": false  }, config ) );
+        if( config.theme ){
+          var write_style = variants.findLoadedStylesheet( 'variant-style' );
+          write_style.setProperty( '--CONFIG-MERMAID-theme', config.theme );
+        }
+      }
+    </script>
+{{- end }}
+    <script src="{{"js/theme.js" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}"></script>
+    {{- partial "custom-footer.html" . }}
+  </body>
+</html>
